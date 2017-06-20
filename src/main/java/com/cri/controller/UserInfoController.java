@@ -3,6 +3,8 @@ package com.cri.controller;
 import com.cri.pojo.UserInfoPOJO;
 import com.cri.service.UserInfoService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +17,16 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author csg
  * @create 2017-06-18:35
  */
-@RestController
+@Controller
 @AllArgsConstructor
 public class UserInfoController
 {
-    private UserInfoService userInfoService;
+    private final UserInfoService userInfoService;
 
     @PostMapping(value = "/addUser")
-    public String addUser(@RequestBody UserInfoPOJO userinfo)
+    public String addUser(@RequestBody UserInfoPOJO userInfo)
     {
-        userInfoService.addUser(userinfo);
+        userInfoService.addUser(userInfo);
         return "";
     }
 

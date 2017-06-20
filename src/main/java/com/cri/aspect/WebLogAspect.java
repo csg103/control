@@ -18,7 +18,7 @@ import java.util.Arrays;
 @Log4j2
 public class WebLogAspect
 {
-    @Pointcut("execution(public * com.cri.controller..*.*(..))")
+    @Pointcut("execution(* com.cri.controller..*(..)) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void webloginfo(){}
     ThreadLocal<Long> startTime = new ThreadLocal<>();
     @Before("webloginfo()")
@@ -34,7 +34,7 @@ public class WebLogAspect
         log.info("HTTP_METHOD : " + request.getMethod());
         log.info("IP : " + request.getRemoteHost());
         log.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        log.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
+        log.info("ARGS  : " + Arrays.toString(joinPoint.getArgs()));
 
     }
 

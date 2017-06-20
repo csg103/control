@@ -10,5 +10,5 @@ import com.cri.pojo.UserInfoPOJO;
  */
 
 public interface UserInfoService {
-    public String addUser(UserInfoPOJO useinfo);
+     int addUser(UserInfoPOJO useinfo);
 }

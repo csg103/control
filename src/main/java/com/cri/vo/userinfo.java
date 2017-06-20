@@ -2,8 +2,6 @@ package com.cri.vo;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -13,15 +11,10 @@ import java.util.Date;
  * @create 2017-06-19:17
  */
 @Data
-@Entity
-@Table(name = "userinfo")
-public class UserInfoVO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class userinfo {
+
     private int id;
-    @NotNull
     private String username;
-    @NotNull
     private String pwd;
     private Date creattime;
 }
