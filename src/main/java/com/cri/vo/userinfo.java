@@ -17,4 +17,5 @@ public class userinfo {
     private String username;
     private String pwd;
     private Date creattime;
+    private  String text1;
 }

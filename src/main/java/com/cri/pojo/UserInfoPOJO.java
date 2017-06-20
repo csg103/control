@@ -18,4 +18,6 @@ public class UserInfoPOJO extends BaseVO {
      *  asd
      */
     private String pwd;
+
+    private String  text1;
 }

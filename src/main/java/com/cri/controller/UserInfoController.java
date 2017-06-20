@@ -27,7 +27,7 @@ public class UserInfoController
     public String addUser(@RequestBody UserInfoPOJO userInfo)
     {
         userInfoService.addUser(userInfo);
-        return "";
+        return "home";
     }
 
     @RequestMapping(value = "/{token}")

@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface UserInfoMapper {
 
-    @Insert("INSERT INTO userinfo(`id`, `username`, `creattime`, `pwd`) VALUES (#{id}, #{username}, #{creattime}, #{pwd})")
+    @Insert("INSERT INTO userinfo(`id`, `username`, `creattime`, `pwd`, `text1`) VALUES (#{id}, #{username}, #{creattime}, #{pwd},  #{text1} )")
     int insert(userinfo userInfo);
 
 
