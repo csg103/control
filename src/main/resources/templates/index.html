@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE>实时更新数据的jQuery图表插件DEMO演示</TITLE>
+
+<script type="text/javascript" src="js/jquery.js"></script> 
+<script type="text/javascript" src="js/highcharts.js"></script>
+
+<script type="text/javascript">
+
+    function getNum(){
+        var num;
+        $.ajax({
+            url : "http://localhost:8080/getNum",
+            contentType: "application/json; charset=utf-8",
+            data :"",
+            dataType:"json",
+            async : false,
+            type: "POST",
+            success : function(data) {
+                num=data;
+            },
+            error : function(){
+                alert("error");
+            }
+        });
+
+
+
+       return num;
+    }
+
+
+
+
+
+$(function () {                                                                     
+$(document).ready(function() {                                                  
+	Highcharts.setOptions({                                                     
+		global: {                                                               
+			useUTC: false                                                       
+		}                                                                       
+	});                                                                         
+																				
+	var chart;                                                                  
+	$('#container').highcharts({                                                
+		chart: {                                                                
+			type: 'spline',                                                     
+			animation: Highcharts.svg, // don't animate in old IE               
+			marginRight: 10,                                                    
+			events: {                                                           
+				load: function() {
+
+					// set up the updating of the chart each second             
+					var series = this.series[0];                                
+					setInterval(function() {
+
+						var x = (new Date()).getTime(), // current time
+
+							y =  getNum();
+						series.addPoint([x, y], true, true);
+						//设置监测时间间隔，根据监测点数自动获取时间
+					}, 1000);
+				}                                                               
+			}                                                                   
+		},                                                                      
+		title: {                                                                
+			text: 'CPU动态走势图--1秒'                                            
+		},                                                                      
+		xAxis: {
+			type: 'datetime',
+			tickPixelInterval: 100
+		},                                                                      
+		yAxis: {                                                                
+			title: {                                                            
+				text: 'CPU动态走势图--1秒'                                                   
+			},                                                                  
+			plotLines: [{                                                       
+				value: 0,                                                       
+				width: 1,                                                       
+				color: '#808080'                                                
+			}]                                                                  
+		},                                                                      
+		tooltip: {                                                              
+			formatter: function() {                                             
+					return '<b>'+ this.series.name +'</b><br/>'+                
+					Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+					Highcharts.numberFormat(this.y, 2);
+			}                                                                   
+		},                                                                      
+		legend: {                                                               
+			enabled: false                                                      
+		},                                                                      
+		exporting: {                                                            
+			enabled: false                                                      
+		},                                                                      
+		series: [{                                                              
+			name: 'Random data',                                                
+			data: (function() {                                                 
+				// generate an array of random data                             
+				var data = [],                                                  
+					time = (new Date()).getTime(),                              
+					i;
+
+				//设置监测点 当前页面总共显示监测的次数
+				for (i = -14; i <= 0; i++) {
+
+					data.push({                                                 
+						x: time + i * 1000,
+						y:  getNum()
+					});                                                         
+				}                                                               
+				return data;                                                    
+			})()                                                                
+		}]                                                                      
+	});                                                                         
+});                                                                             
+																				
+});               
+</script>
+</HEAD>
+
+<BODY>
+
+<div id="container" style="width:700px;height:400px;margin:0 auto;"></div>
+<div style="text-align:center;clear:both;">
+<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+<script src="/follow.js" type="text/javascript"></script>
+</div>
+</BODY>
+</HTML>

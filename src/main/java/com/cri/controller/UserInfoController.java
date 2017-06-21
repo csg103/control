@@ -23,11 +23,11 @@ public class UserInfoController
 {
     private final UserInfoService userInfoService;
 
-    @PostMapping(value = "/addUser")
-    public String addUser(@RequestBody UserInfoPOJO userInfo)
+    @RequestMapping(value = "/addUser")
+    public String addUser()
     {
-        userInfoService.addUser(userInfo);
-        return "home";
+      //  userInfoService.addUser(userInfo);
+        return "index";
     }
 
     @RequestMapping(value = "/{token}")
